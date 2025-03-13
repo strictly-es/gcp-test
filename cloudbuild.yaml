@@ -1,20 +1,22 @@
 steps:
-  # 1. Docker イメージをビルドして Container Registry にプッシュ
+  # 1. Docker イメージをビルド
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/test-shun-347007gcp-test', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/test-shun-347007/cloud-run-source-deploy/gcp-test', '.']
 
+  # 2. Docker イメージを Artifact Registry に push
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/test-shun-347007/gcp-test']
+    args: ['push', 'us-central1-docker.pkg.dev/test-shun-347007/cloud-run-source-deploy/gcp-test']
 
-  # 2. Cloud Run にデプロイ
-  - name: 'gcr.io/cloud-builders/gcloud'
+  # 3. Cloud Run にデプロイ
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
     args: [
-      'run', 'deploy', 'hello-world',
-      '--image', 'gcr.io/test-shun-347007/gcp-test',
-      '--platform', 'managed',
+      'run', 'deploy', 'gcp-test',
+      '--image', 'us-central1-docker.pkg.dev/test-shun-347007/cloud-run-source-deploy/gcp-test',
       '--region', 'us-central1',
+      '--platform', 'managed',
       '--allow-unauthenticated'
     ]
 
 images:
-  - 'gcr.io/test-shun-347007/hello-world'
+  - 'us-central1-docker.pkg.dev/test-shun-347007/cloud-run-source-deploy/gcp-test'
