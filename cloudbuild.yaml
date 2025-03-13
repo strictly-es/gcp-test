@@ -1,10 +1,10 @@
 steps:
   # 1. Docker イメージをビルドして Container Registry にプッシュ
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/test-shun-347007gcp-test', '.']
+    args: ['build', '-t', 'gcr.io/test-shun-347007gcp-test:latest', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/test-shun-347007/gcp-test']
+    args: ['push', 'gcr.io/test-shun-347007/gcp-test:latest']
 
   # 2. Cloud Run にデプロイ
   - name: 'gcr.io/cloud-builders/gcloud'
