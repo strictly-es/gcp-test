@@ -1,0 +1,8 @@
+#再ビルド
+gcloud builds submit --tag gcr.io/test-shun-347007/gcp-test
+
+#deploy
+gcloud run deploy hello-world --image gcr.io/test-shun-347007/gcp-test  --platform managed
+
+#再deploy
+gcloud run deploy hello-world --image gcr.io/test-shun-347007/gcp-test --platform managed --region us-central1 --allow-unauthenticated
