@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Cloud Storage からモデルをロードする関数
 def load_model():
     storage_client = storage.Client()
-    bucket_name = os.getenv("MODEL_PATH").split("/")[2]  # `gs://credit-risk-bucket/credit_risk_model.pkl`
+    bucket_name = os.getenv("MODEL_PATH").split("/")[2]  # `gs://credit-risk-bucket-test/credit_risk_model.pkl`
     blob_name = "/".join(os.getenv("MODEL_PATH").split("/")[3:])
     
     bucket = storage_client.bucket(bucket_name)
