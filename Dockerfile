@@ -4,6 +4,9 @@ FROM python:3.9-slim
 # 作業ディレクトリ作成
 WORKDIR /app
 
+# 環境変数を設定
+ENV MODEL_PATH="gs://credit-risk-bucket-test/credit_risk_model.pkl"
+
 # 必要なファイルをコピー
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
