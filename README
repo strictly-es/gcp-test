@@ -11,6 +11,19 @@ gcloud run deploy hello-world --image gcr.io/test-shun-347007/gcp-test --platfor
 #cloudbuild.yaml　Artifact Registry内の名前
 cloud-run-source-deploy/gcp-test
 
+#構成
+localコード→github→Cloud build→Cloud run
+
+Cloud Build を使用した Cloud Run へのデプロイ
+https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run?hl=ja
+
+#手順
+・localでコード生成。Dockerとcloudbuild.yamlを作成。
+・githubリポジトリを作成
+・Cloud storageにモデルを置く
+・Cloud buildでトリガーを設定(CI/CD)
+・githubにpush
+
 #Cloud Build（先にgithub用意。）
 トリガー作成
 ブランチに push する
@@ -18,3 +31,12 @@ cloud-run-source-deploy/gcp-test
 新しいリポジトリに接続
 形式：自動検出
 ロケーション：リポジトリ
+
+
+#MLモデルテスト
+curl -X POST "https://gcp-test-192060317920.us-central1.run.app/predict" \
+     -H "Content-Type: application/json" \
+     --data '{"annual_income": 70000, "credit_score": 730, "loan_amount": 16000, "past_defaults": 0, "investment_frequency": 4}'
+
+
+#Artifact Registry
