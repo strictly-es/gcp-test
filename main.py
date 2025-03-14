@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import joblib
 import numpy as np
 import os
@@ -24,21 +24,28 @@ def load_model():
 # モデルをロード
 model = load_model()
 
-@app.route("/", methods=["GET"])
+@app.route("/predict", methods=["POST"])
 def predict():
     """
-    クレジットリスクを予測する
+    クレジットリスクを予測するAPI
+    - `annual_income`: 年収（float）
+    - `credit_score`: クレジットスコア（int）
+    - `loan_amount`: ローン金額（float）
+    - `past_defaults`: 過去のデフォルト回数（int）
+    - `investment_frequency`: 投資頻度（int）
     """
     try:
-        # サンプルデータ
-        annual_income = 70000
-        credit_score = 730
-        loan_amount = 16000
-        past_defaults = 0
-        investment_frequency = 4
+        # JSONデータを取得
+        data = request.get_json()
+
+        # 必須のキーがあるかチェック
+        required_keys = ["annual_income", "credit_score", "loan_amount", "past_defaults", "investment_frequency"]
+        if not all(key in data for key in required_keys):
+            return jsonify({"error": "Missing required parameters"}), 400
 
         # 入力データをモデルのフォーマットに変換
-        features = np.array([[annual_income, credit_score, loan_amount, past_defaults, investment_frequency]])
+        features = np.array([[data["annual_income"], data["credit_score"], data["loan_amount"], 
+                              data["past_defaults"], data["investment_frequency"]]])
 
         # 予測を実行
         prediction = model.predict_proba(features)[:, 1]
