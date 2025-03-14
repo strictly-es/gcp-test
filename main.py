@@ -3,8 +3,10 @@ import joblib
 import numpy as np
 import os
 from google.cloud import storage
+from flask_cors import CORS 
 
 app = Flask(__name__)
+CORS(app)
 
 # Cloud Storage からモデルをロードする関数
 def load_model():

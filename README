@@ -22,6 +22,7 @@ https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run?hl=ja
 ・githubリポジトリを作成
 ・Cloud storageにモデルを置く
 ・Cloud buildでトリガーを設定(CI/CD)
+・cloudbuild.yamlの名前を合わせる。args: ['run', 'deploy', 'gcp-test'（ここ）,
 ・githubにpush
 
 #Cloud Build（先にgithub用意。）
