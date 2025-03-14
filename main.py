@@ -48,6 +48,5 @@ def predict():
     except Exception as e:
         return jsonify({"error": str(e)}), 500  # ✅ エラー時も JSON を返す
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))  # Cloud Run は 8080 で実行
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
