@@ -1,1 +1,5 @@
 flask
+joblib
+numpy
+google-cloud-storage
+scikit-learn

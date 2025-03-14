@@ -1,8 +1,20 @@
 #再ビルド
 gcloud builds submit --tag gcr.io/test-shun-347007/gcp-test
 
-#deploy
+#cloud run deploy
 gcloud run deploy hello-world --image gcr.io/test-shun-347007/gcp-test  --platform managed
 
-#再deploy
+#cloud run 再deploy
 gcloud run deploy hello-world --image gcr.io/test-shun-347007/gcp-test --platform managed --region us-central1 --allow-unauthenticated
+
+
+#cloudbuild.yaml　Artifact Registry内の名前
+cloud-run-source-deploy/gcp-test
+
+#Cloud Build（先にgithub用意。）
+トリガー作成
+ブランチに push する
+第 1 世代
+新しいリポジトリに接続
+形式：自動検出
+ロケーション：リポジトリ
